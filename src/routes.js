@@ -8,6 +8,7 @@ import UserController from './app/controllers/UserController.js';
 import multerConfig from './config/multer.cjs';
 import authMiddleware from './app/middleware/Auth.js';
 import adminMiddleware from './app/middleware/Admin.js';
+import CreateCheckoutSessionController from './app/controllers/STRIPE/CreateCheckoutSessionController.js';
 
 const routers = new Router();
 
@@ -49,12 +50,15 @@ routers.put(
   '/category/:id',
   adminMiddleware,
   upload.single('file'),
-  ProductController.update,
+  CategoyController.update,
 );
 
 // rotas de pedidos
 routers.post('/orders', OrderController.store);
 routers.put('/orders/:id', adminMiddleware, OrderController.update);
-routers.get('/orders', OrderController.index); 
+routers.get('/orders', OrderController.index);
+
+// rotas de pagamento
+routers.post('/create-checkout-session', CreateCheckoutSessionController.store)
 
 export default routers;

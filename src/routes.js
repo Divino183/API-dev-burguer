@@ -58,6 +58,8 @@ routers.post('/orders', OrderController.store);
 routers.put('/orders/:id', adminMiddleware, OrderController.update);
 routers.get('/orders', OrderController.index);
 
+routers.get('/orders/me', OrderController.indexByUser);
+
 // rotas de pagamento
 routers.post('/create-checkout-session', CreateCheckoutSessionController.store)
 

@@ -85,15 +85,24 @@ class OrderController {
     } catch (err) {
       return response.status(400).json({ erro: err.mensage });
     }
-    
 
     return response.status(200).json(status);
   }
 
+  // Painel do administrador: todos os pedidos (não alterado)
   async index(_request, response) {
-    const orders = await Order.find()
+    const orders = await Order.find();
 
-    return response.status(200).json(orders)
+    return response.status(200).json(orders);
+  }
+
+  // NOVO - Cliente: só os pedidos dele
+  async indexByUser(request, response) {
+    const { UserId } = request;
+
+    const orders = await Order.find({ 'user.id': UserId });
+
+    return response.status(200).json(orders);
   }
 }
 
